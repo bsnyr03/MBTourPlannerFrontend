@@ -1,0 +1,13 @@
+<h2>Tour Detail</h2>
+
+<div *ngIf="tour$ | async as tour; else notFound">
+  <p><strong>Name:</strong> {{ tour.name }}</p>
+  <p><strong>Description:</strong> {{ tour.description }}</p>
+  <p><strong>From:</strong> {{ tour.from }}</p>
+  <p><strong>To:</strong> {{ tour.to }}</p>
+  <p><strong>Transport:</strong> {{ tour.transportType }}</p>
+</div>
+
+<ng-template #notFound>
+  <p>Tour not found.</p>
+</ng-template>

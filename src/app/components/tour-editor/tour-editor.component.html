@@ -1,0 +1,20 @@
+<h2>Add New Tour</h2>
+
+<form (ngSubmit)="save()">
+  <label>Name:</label>
+  <input [(ngModel)]="tour.name" name="name" required>
+
+  <label>Description:</label>
+  <input [(ngModel)]="tour.description" name="description">
+
+  <label>From:</label>
+  <input [(ngModel)]="tour.from" name="from" required>
+
+  <label>To:</label>
+  <input [(ngModel)]="tour.to" name="to" required>
+
+  <label>Transport Type:</label>
+  <input [(ngModel)]="tour.transportType" name="transportType">
+
+  <button type="submit">Save</button>
+</form>
