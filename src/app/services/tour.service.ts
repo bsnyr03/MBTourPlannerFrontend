@@ -1,43 +1,33 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Tour } from '../models/tour.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TourService {
-  private toursSubject = new BehaviorSubject<Tour[]>([
-    { id: 1, name: 'Alpen Adventure', description: 'Scenic mountain route', from: 'Salzburg', to: 'Innsbruck', transportType: 'Car' },
-    { id: 2, name: 'Donau-Radtour', description: 'Bike trip along the Danube', from: 'Linz', to: 'Wien', transportType: 'Bike' }
-  ]);
+  private readonly BASE_URL = 'http://localhost:8080/api/tours';
 
-  getTours(): Observable<Tour[]> {
-    return this.toursSubject.asObservable();
+  constructor(private http: HttpClient) {}
+
+  getAllTours(): Observable<Tour[]> {
+    return this.http.get<Tour[]>(this.BASE_URL);
   }
 
-  getTourById(id: number): Tour | undefined {
-    return this.toursSubject.getValue().find(t => t.id === id);
+  getTourById(id: number): Observable<Tour> {
+    return this.http.get<Tour>(`${this.BASE_URL}/${id}`);
   }
 
-  addTour(tour: Tour): void {
-    const current = this.toursSubject.getValue();
-    tour.id = this.getNextId(current);
-    this.toursSubject.next([...current, tour]);
+  addTour(tour: Tour): Observable<Tour> {
+    return this.http.post<Tour>(this.BASE_URL, tour);
   }
 
-  updateTour(updated: Tour): void {
-    const updatedList = this.toursSubject.getValue().map(t =>
-      t.id === updated.id ? updated : t
-    );
-    this.toursSubject.next(updatedList);
+  updateTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(`${this.BASE_URL}/${tour.id}`, tour);
   }
 
-  private getNextId(tours: Tour[]): number {
-    return tours.length > 0 ? Math.max(...tours.map(t => t.id)) + 1 : 1;
+  deleteTour(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.BASE_URL}/${id}`);
   }
-  deleteTour(id: number): void {
-    const updated = this.toursSubject.getValue().filter(t => t.id !== id);
-    this.toursSubject.next(updated);
-  }
-
 }

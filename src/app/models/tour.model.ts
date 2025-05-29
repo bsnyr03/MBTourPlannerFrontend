@@ -1,8 +1,11 @@
 export interface Tour {
-  id: number;
+  id?: number;
   name: string;
   description: string;
-  from: string;
-  to: string;
+  fromLocation: string;
+  toLocation: string;
   transportType: string;
+  distance: number;
+  estimatedTime: string;
+  routeImageUrl: string;
 }

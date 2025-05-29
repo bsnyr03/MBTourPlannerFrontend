@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Tour } from '../../models/tour.model';
 import { TourService } from '../../services/tour.service';
+import { Tour } from '../../models/tour.model';
 
 @Component({
   selector: 'app-tour-editor',
@@ -14,34 +14,42 @@ import { TourService } from '../../services/tour.service';
 })
 export class TourEditorComponent {
   tour: Tour = {
-    id: 0,
     name: '',
     description: '',
-    from: '',
-    to: '',
-    transportType: ''
+    fromLocation: '',
+    toLocation: '',
+    transportType: '',
+    distance: 0,
+    estimatedTime: '',
+    routeImageUrl: ''
   };
 
   isEdit = false;
 
-  constructor(private route: ActivatedRoute, private tourService: TourService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private tourService: TourService,
+    private router: Router
+  ) {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
+      this.isEdit = true;
       const id = Number(idParam);
-      const found = this.tourService.getTourById(id);
-      if (found) {
-        this.tour = { ...found };
-        this.isEdit = true;
-      }
+      this.tourService.getTourById(id).subscribe((data) => {
+        this.tour = data;
+      });
     }
   }
 
   save(): void {
-    if (this.isEdit) {
-      this.tourService.updateTour(this.tour);
+    if (this.isEdit && this.tour.id) {
+      this.tourService.updateTour(this.tour).subscribe(() => {
+        this.router.navigate(['/tours']);
+      });
     } else {
-      this.tourService.addTour(this.tour);
+      this.tourService.addTour(this.tour).subscribe(() => {
+        this.router.navigate(['/tours']);
+      });
     }
-    this.router.navigate(['/tours']);
   }
 }

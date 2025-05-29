@@ -5,15 +5,16 @@
 <ul>
   <li *ngFor="let tour of tours$ | async">
     <a [routerLink]="['/tours', tour.id]">
-      {{ tour.name }} ({{ tour.from }} → {{ tour.to }})
+      {{ tour.name }} ({{ tour.fromLocation }} → {{ tour.toLocation }})
     </a>
 
     <div class="button-group">
       <button class="edit" [routerLink]="['/edit-tour', tour.id]">Edit</button>
-      <button class="delete" (click)="deleteTour(tour.id)">Loeschen</button>
-      <button class="logs" [routerLink]="['/tours', tour.id, 'logs']">Logs</button>
+      <button class="delete" *ngIf="tour.id" (click)="deleteTour(tour.id)">Loeschen</button>
+      <button [routerLink]="['/tours', tour.id, 'logs']">Logs</button>
     </div>
   </li>
 </ul>
+
 
 

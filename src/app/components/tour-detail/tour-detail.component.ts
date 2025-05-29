@@ -18,9 +18,7 @@ export class TourDetailComponent {
   constructor(private route: ActivatedRoute, private tourService: TourService) {
     this.tour$ = this.route.paramMap.pipe(
       map((params: ParamMap) => Number(params.get('id'))),
-      switchMap((id: number) => this.tourService.getTours().pipe(
-        map(tours => tours.find(t => t.id === id))
-      ))
+      switchMap((id: number) => this.tourService.getTourById(id))
     );
   }
 }

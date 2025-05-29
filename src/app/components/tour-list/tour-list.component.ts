@@ -13,13 +13,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./tour-list.component.scss']
 })
 export class TourListComponent {
-  tours$: Observable<Tour[]>;
+  tours$!: Observable<Tour[]>;
 
-  constructor(private tourService: TourService) {
-    this.tours$ = this.tourService.getTours();
+  constructor(private tourService: TourService) {}
+
+  ngOnInit(): void {
+    this.loadTours();
   }
+
+  loadTours(): void {
+    this.tours$ = this.tourService.getAllTours();
+  }
+
   deleteTour(id: number): void {
-    this.tourService.deleteTour(id);
+    this.tourService.deleteTour(id).subscribe(() => {
+      this.loadTours();
+    });
   }
-
 }
