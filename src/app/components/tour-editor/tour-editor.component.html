@@ -1,6 +1,11 @@
 <h2>{{ isEdit ? 'Edit Tour' : 'Add Tour' }}</h2>
 
-<form (ngSubmit)="save()">
+<div *ngIf="isLoading">
+  <p>Lade Daten...</p>
+</div>
+
+<!-- ADD-FORMULAR -->
+<form *ngIf="!isLoading && !isEdit" (ngSubmit)="save()">
   <label>Name:</label>
   <input [(ngModel)]="tour.name" name="name" required>
 
@@ -25,5 +30,37 @@
   <label>Route Image URL:</label>
   <input [(ngModel)]="tour.routeImageUrl" name="routeImageUrl">
 
-  <button type="submit">{{ isEdit ? 'Update' : 'Create' }}</button>
+  <button type="submit">Create</button>
+</form>
+
+<!--  EDIT-FORMULAR -->
+
+<form *ngIf="!isLoading && isEdit" (ngSubmit)="save()">
+  <input type="hidden" [(ngModel)]="tour.id" name="id">
+
+  <label>Name:</label>
+  <input [(ngModel)]="tour.name" name="name" required>
+
+  <label>Description:</label>
+  <input [(ngModel)]="tour.description" name="description">
+
+  <label>From:</label>
+  <input [(ngModel)]="tour.fromLocation" name="fromLocation" required>
+
+  <label>To:</label>
+  <input [(ngModel)]="tour.toLocation" name="toLocation" required>
+
+  <label>Transport Type:</label>
+  <input [(ngModel)]="tour.transportType" name="transportType">
+
+  <label>Distance:</label>
+  <input type="number" [(ngModel)]="tour.distance" name="distance">
+
+  <label>Estimated Time:</label>
+  <input [(ngModel)]="tour.estimatedTime" name="estimatedTime">
+
+  <label>Route Image URL:</label>
+  <input [(ngModel)]="tour.routeImageUrl" name="routeImageUrl">
+
+  <button type="submit">Update</button>
 </form>

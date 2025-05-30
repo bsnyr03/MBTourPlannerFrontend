@@ -13,18 +13,9 @@ import { Tour } from '../../models/tour.model';
   styleUrls: ['./tour-editor.component.scss']
 })
 export class TourEditorComponent {
-  tour: Tour = {
-    name: '',
-    description: '',
-    fromLocation: '',
-    toLocation: '',
-    transportType: '',
-    distance: 0,
-    estimatedTime: '',
-    routeImageUrl: ''
-  };
-
+  tour!: Tour;
   isEdit = false;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +28,20 @@ export class TourEditorComponent {
       const id = Number(idParam);
       this.tourService.getTourById(id).subscribe((data) => {
         this.tour = data;
+        this.isLoading = false;
       });
+    } else {
+      this.tour = {
+        name: '',
+        description: '',
+        fromLocation: '',
+        toLocation: '',
+        transportType: '',
+        distance: 0,
+        estimatedTime: '',
+        routeImageUrl: ''
+      };
+      this.isLoading = false;
     }
   }
 

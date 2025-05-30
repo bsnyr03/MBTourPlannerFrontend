@@ -22,7 +22,15 @@ export class TourListComponent {
   }
 
   loadTours(): void {
-    this.tours$ = this.tourService.getAllTours();
+    this.tourService.getAllTours().subscribe(tours => {
+      console.log('Geladene Touren:', tours);
+
+      // Wandelt Array in Observable um
+      this.tours$ = new Observable(observer => {
+        observer.next(tours);
+        observer.complete();
+      });
+    });
   }
 
   deleteTour(id: number): void {
