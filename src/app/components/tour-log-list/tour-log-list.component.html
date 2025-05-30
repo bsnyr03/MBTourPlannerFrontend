@@ -1,5 +1,7 @@
 <h2>Tour Logs</h2>
 
+<button [routerLink]="['/tours', tourId, 'logs', 'create']">+ Neuen Log hinzufügen</button>
+
 <ul>
   <li *ngFor="let log of logs$ | async">
     <p><strong>Date:</strong> {{ log.logDateTime }}</p>
@@ -8,6 +10,9 @@
     <p><strong>Difficulty:</strong> {{ log.difficulty }}</p>
     <p><strong>Rating:</strong> {{ log.rating }}</p>
     <p><strong>Comment:</strong> {{ log.comment }}</p>
+
+    <button [routerLink]="['/tours', tourId, 'logs', log.id, 'edit']">Edit</button>
+
     <hr>
   </li>
 </ul>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import { TourLogService } from '../../services/tour-log.service';
 import { TourLog } from '../../models/tour-log.model';
 import { Observable, switchMap } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable, switchMap } from 'rxjs';
 @Component({
   selector: 'app-tour-log-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tour-log-list.component.html',
   styleUrls: ['./tour-log-list.component.scss']
 })

@@ -1,6 +1,6 @@
 export interface TourLog {
-  id: number;
-  logDateTime: string;  // ISO string
+  id?: number;
+  logDateTime: string;
   comment: string;
   difficulty: number;
   totalDistance: number;

@@ -1,1 +1,30 @@
-<p>tour-log-editor works!</p>
+<h2>{{ isEdit ? 'Edit Tour Log' : 'Add New Tour Log' }}</h2>
+
+<form (ngSubmit)="save()">
+  <label>Log Date:</label>
+  <input type="datetime-local" [(ngModel)]="log.logDateTime" name="logDateTime" required>
+
+  <label>Total Time:</label>
+  <input [(ngModel)]="log.totalTime" name="totalTime" required>
+
+  <label>Distance (km):</label>
+  <input type="number" [(ngModel)]="log.totalDistance" name="totalDistance" required>
+
+  <label>Difficulty:</label>
+  <input type="number" [(ngModel)]="log.difficulty" name="difficulty" min="1" max="5" required>
+
+  <label>Rating:</label>
+  <select [(ngModel)]="log.rating" name="rating" required>
+    <option value="1 stars">1 star</option>
+    <option value="2 stars">2 stars</option>
+    <option value="3 stars">3 stars</option>
+    <option value="4 stars">4 stars</option>
+    <option value="5 stars">5 stars</option>
+  </select>
+
+
+  <label>Comment:</label>
+  <textarea [(ngModel)]="log.comment" name="comment"></textarea>
+
+  <button type="submit">{{ isEdit ? 'Update Log' : 'Create Log' }}</button>
+</form>
