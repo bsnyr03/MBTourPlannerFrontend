@@ -1,71 +1,62 @@
-ul {
-  list-style: none;
-  padding: 0;
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
 
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 8px 10px;
     border-radius: 6px;
-    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    min-width: 0;
+  }
 
-    a {
-      font-weight: 600;
-      color: #007bff;
-      text-decoration: none;
+  .add-btn {
+    flex-shrink: 0;
+    background-color: #007bff;
+    color: white;
+    font-size: 20px;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 
-      &:hover {
-        text-decoration: underline;
-      }
+    &:hover {
+      background-color: #0056b3;
     }
-
-    .button-group {
-      display: flex;
-      gap: 10px;
-
-      button {
-        padding: 6px 14px;
-        border: none;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background-color 0.2s ease, box-shadow 0.2s ease;
-
-        &.edit {
-          background-color: #007bff;
-          color: white;
-
-          &:hover {
-            background-color: #0069d9;
-            box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
-          }
-        }
-
-        &.delete {
-          background-color: #dc3545;
-          color: white;
-
-          &:hover {
-            background-color: #c82333;
-            box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
-          }
-        }
-
-        &.logs {
-          background-color: #17a2b8;
-          color: white;
-
-          &:hover {
-            background-color: #138496;
-            box-shadow: 0 2px 6px rgba(23, 162, 184, 0.4);
-          }
-        }
-      }
-    }
-
   }
 }
+
+.result-count {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 1rem;
+}
+.tour-view {
+  display: grid;
+  grid-template-columns: 240px 1fr; // 240px feste Liste, Rest für Details
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tour-list-column {
+  background-color: #f5f7fa;
+  padding: 1rem;
+  overflow-y: auto;
+  min-width: 240px;
+  max-width: 240px;
+  box-sizing: border-box;
+  border-right: 1px solid #ccc;
+}
+
+.tour-detail-column {
+  background-color: #f5f7fa; 
+  padding: 2rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+

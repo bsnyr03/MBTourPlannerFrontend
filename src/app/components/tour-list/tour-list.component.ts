@@ -3,17 +3,25 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TourService } from '../../services/tour.service';
 import { Tour } from '../../models/tour.model';
-import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tour-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './tour-list.component.html',
   styleUrls: ['./tour-list.component.scss']
 })
 export class TourListComponent {
-  tours$!: Observable<Tour[]>;
+  tours: Tour[] = [];
+  filteredTours: Tour[] = [];
+  searchTerm: string = '';
+  selectedTour?: Tour;
+
+  selectTour(tour: Tour): void {
+    this.selectedTour = tour;
+  }
+
 
   constructor(private tourService: TourService) {}
 
@@ -23,19 +31,22 @@ export class TourListComponent {
 
   loadTours(): void {
     this.tourService.getAllTours().subscribe(tours => {
-      console.log('Geladene Touren:', tours);
-
-      // Wandelt Array in Observable um
-      this.tours$ = new Observable(observer => {
-        observer.next(tours);
-        observer.complete();
-      });
+      this.tours = tours;
+      this.filterTours();
     });
+  }
+
+  filterTours(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+    this.filteredTours = this.tours.filter(tour =>
+      tour.name.toLowerCase().includes(term)
+    );
   }
 
   deleteTour(id: number): void {
     this.tourService.deleteTour(id).subscribe(() => {
-      this.loadTours();
+      this.tours = this.tours.filter(t => t.id !== id);
+      this.filterTours(); // Liste direkt neu filtern
     });
   }
 }

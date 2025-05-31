@@ -1,18 +1,37 @@
-<h2>Tour List</h2>
+<div class="tour-view">
+  <!-- Linke Spalte: Suchleiste + Tourliste -->
+  <section class="tour-list-column">
+    <h2>Tour List</h2>
 
-<button routerLink="/add-tour">Add Tour</button>
-
-<ul>
-  <li *ngFor="let tour of tours$ | async">
-    <a [routerLink]="['/tours', tour.id]">{{ tour.name }}</a>
-
-    <div class="button-group">
-      <button class="edit" [routerLink]="['/edit-tour', tour.id]">Edit</button>
-      <button class="delete" *ngIf="tour.id" (click)="deleteTour(tour.id)">Löschen</button>
-      <button [routerLink]="['/tours', tour.id, 'logs']">Logs</button>
+    <div class="toolbar">
+      <input
+        type="text"
+        placeholder="Search tours..."
+        [(ngModel)]="searchTerm"
+        (input)="filterTours()"
+      />
+      <button class="add-btn" routerLink="/add-tour">+</button>
     </div>
-  </li>
-</ul>
 
+    <p class="result-count">{{ filteredTours.length }} tours found</p>
 
+    <div class="tour-list">
+      <div class="tour-card" *ngFor="let tour of filteredTours" (click)="selectTour(tour)">
+        <a>{{ tour.name }}</a>
 
+        <div class="button-group">
+          <button class="edit" [routerLink]="['/edit-tour', tour.id]">Edit</button>
+          <button class="delete" *ngIf="tour.id" (click)="deleteTour(tour.id)">Löschen</button>
+          <button class="logs" [routerLink]="['/tours', tour.id, 'logs']">Logs</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rechte Spalte: Detailanzeige -->
+  <section class="tour-detail-column" *ngIf="selectedTour">
+    <h2>{{ selectedTour.name }}</h2>
+    <p>{{ selectedTour.description }}</p>
+    <!-- du kannst später Bild, Buttons etc. ergänzen -->
+  </section>
+</div>

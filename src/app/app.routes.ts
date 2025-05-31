@@ -5,14 +5,21 @@ import { TourDetailComponent } from './components/tour-detail/tour-detail.compon
 import { TourEditorComponent } from './components/tour-editor/tour-editor.component';
 import { TourLogListComponent } from './components/tour-log-list/tour-log-list.component';
 import {TourLogEditorComponent} from "./components/tour-log-editor/tour-log-editor.component";
+import {MainLayoutComponent} from "./components/main-layout/main-layout.component";
 
 export const routes: Routes = [
-  { path: 'tours', component: TourListComponent },
-  { path: 'tours/:id', component: TourDetailComponent },
-  { path: 'edit-tour/:id', component: TourEditorComponent },
-  { path: 'add-tour', component: TourEditorComponent },
-  { path: 'tours/:id/logs', component: TourLogListComponent },
-  { path: 'tours/:tourId/logs/create', component: TourLogEditorComponent },
-  { path: 'tours/:tourId/logs/:logId/edit', component: TourLogEditorComponent },
-  { path: '**', redirectTo: 'tours', pathMatch: 'full' }
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: 'tours', component: TourListComponent },
+      { path: 'tours/:id', component: TourDetailComponent },
+      { path: 'edit-tour/:id', component: TourEditorComponent },
+      { path: 'add-tour', component: TourEditorComponent },
+      { path: 'tours/:id/logs', component: TourLogListComponent },
+      { path: 'tours/:tourId/logs/create', component: TourLogEditorComponent },
+      { path: 'tours/:tourId/logs/:logId/edit', component: TourLogEditorComponent },
+      { path: '**', redirectTo: 'tours' }
+    ]
+  }
 ];

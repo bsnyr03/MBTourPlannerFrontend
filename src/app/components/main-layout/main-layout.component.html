@@ -1,0 +1,22 @@
+<div class="grid-layout">
+  <!-- Spalte 1: Sidebar -->
+  <aside class="sidebar">
+    <nav>
+      <h1 class="logo">TourPlanner</h1>
+      <ul>
+        <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/search" routerLinkActive="active">Search</a></li>
+        <li><a routerLink="/tours" routerLinkActive="active">Tour List</a></li>
+        <li><a routerLink="/add-tour" routerLinkActive="active">Add Tour</a></li>
+        <li><a routerLink="/import" routerLinkActive="active">Import Tour File</a></li>
+        <li><a routerLink="/export" routerLinkActive="active">Export Tour File</a></li>
+        <li><a routerLink="/reports" routerLinkActive="active">Reports</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Spalte 2 + 3 (Tourliste + Detailanzeige) -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
