@@ -1,66 +1,35 @@
-<h2>{{ isEdit ? 'Edit Tour' : 'Add Tour' }}</h2>
+<div class="tour-editor">
+  <h2>{{ isEdit ? 'Edit Tour' : 'Add Tour' }}</h2>
 
-<div *ngIf="isLoading">
-  <p>Lade Daten...</p>
+  <div *ngIf="isLoading" class="loading">Lade Daten...</div>
+
+  <form *ngIf="!isLoading" (ngSubmit)="save()">
+    <input *ngIf="isEdit" type="hidden" [(ngModel)]="tour.id" name="id" />
+
+    <label for="name">Name:</label>
+    <input id="name" [(ngModel)]="tour.name" name="name" required />
+
+    <label for="description">Description:</label>
+    <input id="description" [(ngModel)]="tour.description" name="description" />
+
+    <label for="from">From:</label>
+    <input id="from" [(ngModel)]="tour.fromLocation" name="fromLocation" required />
+
+    <label for="to">To:</label>
+    <input id="to" [(ngModel)]="tour.toLocation" name="toLocation" required />
+
+    <label for="transport">Transport Type:</label>
+    <input id="transport" [(ngModel)]="tour.transportType" name="transportType" />
+
+    <label for="distance">Distance (km):</label>
+    <input id="distance" type="number" [(ngModel)]="tour.distance" name="distance" />
+
+    <label for="time">Estimated Time:</label>
+    <input id="time" [(ngModel)]="tour.estimatedTime" name="estimatedTime" />
+
+    <label for="image">Route Image URL:</label>
+    <input id="image" [(ngModel)]="tour.routeImageUrl" name="routeImageUrl" />
+
+    <button type="submit" class="submit-btn">{{ isEdit ? 'Update Tour' : 'Create Tour' }}</button>
+  </form>
 </div>
-
-<!-- ADD-FORMULAR -->
-<form *ngIf="!isLoading && !isEdit" (ngSubmit)="save()">
-  <label>Name:</label>
-  <input [(ngModel)]="tour.name" name="name" required>
-
-  <label>Description:</label>
-  <input [(ngModel)]="tour.description" name="description">
-
-  <label>From:</label>
-  <input [(ngModel)]="tour.fromLocation" name="fromLocation" required>
-
-  <label>To:</label>
-  <input [(ngModel)]="tour.toLocation" name="toLocation" required>
-
-  <label>Transport Type:</label>
-  <input [(ngModel)]="tour.transportType" name="transportType">
-
-  <label>Distance:</label>
-  <input type="number" [(ngModel)]="tour.distance" name="distance">
-
-  <label>Estimated Time:</label>
-  <input [(ngModel)]="tour.estimatedTime" name="estimatedTime">
-
-  <label>Route Image URL:</label>
-  <input [(ngModel)]="tour.routeImageUrl" name="routeImageUrl">
-
-  <button type="submit">Create</button>
-</form>
-
-<!--  EDIT-FORMULAR -->
-
-<form *ngIf="!isLoading && isEdit" (ngSubmit)="save()">
-  <input type="hidden" [(ngModel)]="tour.id" name="id">
-
-  <label>Name:</label>
-  <input [(ngModel)]="tour.name" name="name" required>
-
-  <label>Description:</label>
-  <input [(ngModel)]="tour.description" name="description">
-
-  <label>From:</label>
-  <input [(ngModel)]="tour.fromLocation" name="fromLocation" required>
-
-  <label>To:</label>
-  <input [(ngModel)]="tour.toLocation" name="toLocation" required>
-
-  <label>Transport Type:</label>
-  <input [(ngModel)]="tour.transportType" name="transportType">
-
-  <label>Distance:</label>
-  <input type="number" [(ngModel)]="tour.distance" name="distance">
-
-  <label>Estimated Time:</label>
-  <input [(ngModel)]="tour.estimatedTime" name="estimatedTime">
-
-  <label>Route Image URL:</label>
-  <input [(ngModel)]="tour.routeImageUrl" name="routeImageUrl">
-
-  <button type="submit">Update</button>
-</form>

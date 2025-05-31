@@ -43,10 +43,13 @@ export class TourListComponent {
     );
   }
 
-  deleteTour(id: number): void {
+  deleteTour(id: number | undefined): void {
+    if (!id) return;
     this.tourService.deleteTour(id).subscribe(() => {
       this.tours = this.tours.filter(t => t.id !== id);
-      this.filterTours(); // Liste direkt neu filtern
+      this.filterTours();
+      this.selectedTour = undefined; // optional: Details ausblenden
     });
   }
+
 }

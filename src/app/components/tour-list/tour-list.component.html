@@ -16,15 +16,18 @@
     <p class="result-count">{{ filteredTours.length }} tours found</p>
 
     <div class="tour-list">
-      <div class="tour-card" *ngFor="let tour of filteredTours" (click)="selectTour(tour)">
-        <a>{{ tour.name }}</a>
+      <div
+        class="tour-card"
+        *ngFor="let tour of filteredTours"
+        (click)="selectTour(tour)"
+        [class.selected]="tour === selectedTour"
+      >
+        <div class="tour-name">{{ tour.name }}</div>
+        <!-- du kannst später das echte Datum einfügen -->
 
-        <div class="button-group">
-          <button class="edit" [routerLink]="['/edit-tour', tour.id]">Edit</button>
-          <button class="delete" *ngIf="tour.id" (click)="deleteTour(tour.id)">Löschen</button>
-          <button class="logs" [routerLink]="['/tours', tour.id, 'logs']">Logs</button>
-        </div>
       </div>
+
+
     </div>
   </section>
 
@@ -32,6 +35,15 @@
   <section class="tour-detail-column" *ngIf="selectedTour">
     <h2>{{ selectedTour.name }}</h2>
     <p>{{ selectedTour.description }}</p>
-    <!-- du kannst später Bild, Buttons etc. ergänzen -->
+
+
+    <!-- Buttons hier anzeigen -->
+    <div class="tour-footer" *ngIf="selectedTour">
+      <button class="edit" [routerLink]="['/edit-tour', selectedTour.id]">Edit Tour</button>
+      <button class="delete" (click)="deleteTour(selectedTour!.id)">Delete Tour</button>
+      <button class="logs" [routerLink]="['/tours', selectedTour.id, 'logs']">View Logs</button>
+    </div>
+
   </section>
+
 </div>
