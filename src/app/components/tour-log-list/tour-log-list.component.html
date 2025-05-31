@@ -1,18 +1,19 @@
-<h2>Tour Logs</h2>
+<div class="tour-log-container">
+  <div class="toolbar">
+    <h2>Tour Logs</h2>
+    <button class="add-btn" [routerLink]="['/tours', tourId, 'logs', 'create']">+ Add Log</button>
+  </div>
 
-<button [routerLink]="['/tours', tourId, 'logs', 'create']">+ Neuen Log hinzufügen</button>
+  <div class="log-list">
+    <div class="log-card" *ngFor="let log of logs$ | async">
+      <p><strong>Date:</strong> {{ log.logDateTime }}</p>
+      <p><strong>Time:</strong> {{ log.totalTime }}</p>
+      <p><strong>Distance:</strong> {{ log.totalDistance }} km</p>
+      <p><strong>Difficulty:</strong> {{ log.difficulty }}</p>
+      <p><strong>Rating:</strong> {{ log.rating }}</p>
+      <p><strong>Comment:</strong> {{ log.comment }}</p>
 
-<ul>
-  <li *ngFor="let log of logs$ | async">
-    <p><strong>Date:</strong> {{ log.logDateTime }}</p>
-    <p><strong>Time:</strong> {{ log.totalTime }}</p>
-    <p><strong>Distance:</strong> {{ log.totalDistance }} km</p>
-    <p><strong>Difficulty:</strong> {{ log.difficulty }}</p>
-    <p><strong>Rating:</strong> {{ log.rating }}</p>
-    <p><strong>Comment:</strong> {{ log.comment }}</p>
-
-    <button [routerLink]="['/tours', tourId, 'logs', log.id, 'edit']">Edit</button>
-
-    <hr>
-  </li>
-</ul>
+      <button class="edit-btn" [routerLink]="['/tours', tourId, 'logs', log.id, 'edit']">Edit</button>
+    </div>
+  </div>
+</div>
