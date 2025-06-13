@@ -48,7 +48,7 @@ export class TourListComponent {
     this.tourService.deleteTour(id).subscribe(() => {
       this.tours = this.tours.filter(t => t.id !== id);
       this.filterTours();
-      this.selectedTour = undefined; // optional: Details ausblenden
+      this.selectedTour = undefined; 
     });
   }
 
