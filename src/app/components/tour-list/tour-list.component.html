@@ -19,31 +19,17 @@
       <div
         class="tour-card"
         *ngFor="let tour of filteredTours"
-        (click)="selectTour(tour)"
-        [class.selected]="tour === selectedTour"
+        (click)="goToTourDetail(tour.id)"
       >
         <div class="tour-name">{{ tour.name }}</div>
-        <!-- du kannst später das echte Datum einfügen -->
-
       </div>
-
-
     </div>
   </section>
 
-  <!-- Rechte Spalte: Detailanzeige -->
-  <section class="tour-detail-column" *ngIf="selectedTour">
-    <h2>{{ selectedTour.name }}</h2>
-    <p>{{ selectedTour.description }}</p>
 
-
-    <!-- Buttons hier anzeigen -->
-    <div class="tour-footer" *ngIf="selectedTour">
-      <button class="edit" [routerLink]="['/edit-tour', selectedTour.id]">Edit Tour</button>
-      <button class="delete" (click)="deleteTour(selectedTour!.id)">Delete Tour</button>
-      <button class="logs" [routerLink]="['/tours', selectedTour.id, 'logs']">View Logs</button>
-    </div>
-
-  </section>
-
+  <div class="tour-footer" *ngIf="selectedTour">
+    <button class="edit" [routerLink]="['/edit-tour', selectedTour.id]">Edit Tour</button>
+    <button class="delete" (click)="deleteTour(selectedTour!.id)">Delete Tour</button>
+    <button class="logs" [routerLink]="['/tours', selectedTour.id, 'logs']">View Logs</button>
+  </div>
 </div>

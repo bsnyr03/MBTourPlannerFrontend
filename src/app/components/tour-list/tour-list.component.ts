@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { TourService } from '../../services/tour.service';
 import { Tour } from '../../models/tour.model';
 import { FormsModule } from '@angular/forms';
@@ -23,10 +23,15 @@ export class TourListComponent {
   }
 
 
-  constructor(private tourService: TourService) {}
+  constructor(private tourService: TourService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTours();
+  }
+
+  goToTourDetail(id: number | undefined): void {
+    if (!id) return;
+    this.router.navigate(['/tours', id]);
   }
 
   loadTours(): void {
@@ -48,7 +53,7 @@ export class TourListComponent {
     this.tourService.deleteTour(id).subscribe(() => {
       this.tours = this.tours.filter(t => t.id !== id);
       this.filterTours();
-      this.selectedTour = undefined; 
+      this.selectedTour = undefined;
     });
   }
 
