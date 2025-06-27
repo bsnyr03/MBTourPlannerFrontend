@@ -13,16 +13,7 @@
     <input id="description" [(ngModel)]="tour.description" name="description" />
 
     <label for="from">From:</label>
-    <input
-      type="text"
-      [(ngModel)]="fromInput"
-      (input)="searchFromSuggestions(fromInput)"
-      placeholder="Startadresse" />
-    <ul *ngIf="fromSuggestions.length > 0">
-      <li *ngFor="let suggestion of fromSuggestions" (click)="selectFromSuggestion(suggestion)">
-        {{ suggestion.properties.label }}
-      </li>
-    </ul>
+
 
     <label for="to">To:</label>
     <input id="to" [(ngModel)]="tour.toLocation" name="toLocation" required />
