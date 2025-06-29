@@ -1,0 +1,58 @@
+.report-wrapper {
+  padding: 2rem;
+  max-width: 700px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.summary-section {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+  }
+}
+
+.tour-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tour-card {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+
+  .tour-name {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  button {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #27ae60;
+    }
+  }
+}

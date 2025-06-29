@@ -8,6 +8,7 @@ import {TourLogEditorComponent} from "./components/tour-log-editor/tour-log-edit
 import {MainLayoutComponent} from "./components/main-layout/main-layout.component";
 import {TourExportsComponent} from "./components/tour-exports/tour-exports.component";
 import {TourImportsComponent} from "./components/tour-imports/tour-imports.component";
+import {TourReportsComponent} from "./components/tour-reports/tour-reports.component";
 
 export const routes: Routes = [
   {
@@ -23,6 +24,7 @@ export const routes: Routes = [
       { path: 'tours/:tourId/logs/:logId/edit', component: TourLogEditorComponent },
       { path: 'export', component: TourExportsComponent },
       { path: 'import', component: TourImportsComponent },
+      { path: 'reports', component: TourReportsComponent },
       { path: '**', redirectTo: 'tours' }
     ]
   }

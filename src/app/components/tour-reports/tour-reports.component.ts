@@ -23,7 +23,10 @@ export class TourReportsComponent implements OnInit {
 
   downloadTourReport(tourId: number): void {
     this.http.get(`http://localhost:8080/api/reports/tour/${tourId}`, { responseType: 'blob' })
-      .subscribe(blob => this.download(blob, `tour-${tourId}-report.pdf`));
+      .subscribe(blob => {
+        console.log('Received PDF blob:', blob);
+        this.download(blob, `tour-${tourId}-report.pdf`);
+      });
   }
 
   downloadSummaryReport(): void {

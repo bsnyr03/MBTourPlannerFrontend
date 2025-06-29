@@ -1,1 +1,15 @@
-<p>tour-reports works!</p>
+<div class="report-wrapper">
+  <h2>Reports</h2>
+
+  <div class="summary-section">
+    <button (click)="downloadSummaryReport()">Download Summary Report</button>
+  </div>
+
+  <h3>Tour Reports</h3>
+  <div class="tour-list">
+    <div class="tour-card" *ngFor="let tour of tours">
+      <div class="tour-name">{{ tour.name }}</div>
+      <button (click)="downloadTourReport(tour.id)">Download Report</button>
+    </div>
+  </div>
+</div>
