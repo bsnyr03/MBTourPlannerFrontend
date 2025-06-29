@@ -7,7 +7,7 @@ import {CommonModule} from "@angular/common";
   standalone: true,
   imports: [CommonModule],
   templateUrl: './tour-exports.component.html',
-  styleUrl: './tour-exports.component.scss'
+  styleUrls: ['./tour-exports.component.scss']
 })
 export class TourExportsComponent {
   constructor(private http: HttpClient) {
