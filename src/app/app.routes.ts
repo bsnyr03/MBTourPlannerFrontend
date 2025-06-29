@@ -9,6 +9,8 @@ import {MainLayoutComponent} from "./components/main-layout/main-layout.componen
 import {TourExportsComponent} from "./components/tour-exports/tour-exports.component";
 import {TourImportsComponent} from "./components/tour-imports/tour-imports.component";
 import {TourReportsComponent} from "./components/tour-reports/tour-reports.component";
+import {HomeComponent} from "./components/home/home.component";
+import {TourSearchComponent} from "./components/tour-search/tour-search.component";
 
 export const routes: Routes = [
   {
@@ -25,13 +27,11 @@ export const routes: Routes = [
       { path: 'export', component: TourExportsComponent },
       { path: 'import', component: TourImportsComponent },
       { path: 'reports', component: TourReportsComponent },
-      {
-        path: 'search',
-        loadComponent: () =>
-          import('./components/tour-search/tour-search.component').then(m => m.TourSearchComponent)
-      },
+      { path: 'home', component: HomeComponent },
+      { path: 'search', component: TourSearchComponent },
 
-      { path: '**', redirectTo: 'tours' }
+
+      { path: '**', redirectTo: 'home' }
     ]
   }
 ];
