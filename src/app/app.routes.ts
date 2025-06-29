@@ -25,6 +25,12 @@ export const routes: Routes = [
       { path: 'export', component: TourExportsComponent },
       { path: 'import', component: TourImportsComponent },
       { path: 'reports', component: TourReportsComponent },
+      {
+        path: 'search',
+        loadComponent: () =>
+          import('./components/tour-search/tour-search.component').then(m => m.TourSearchComponent)
+      },
+
       { path: '**', redirectTo: 'tours' }
     ]
   }

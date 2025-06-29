@@ -1,1 +1,17 @@
-<p>tour-search works!</p>
+<div class="tour-search">
+  <h2>Search Tours</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (input)="search()"
+    placeholder="Search tours by name, location, etc." />
+
+  <ul *ngIf="tours.length > 0">
+    <li *ngFor="let tour of tours">
+      <strong>{{ tour.name }}</strong> – {{ tour.description }}
+    </li>
+  </ul>
+
+  <p *ngIf="tours.length === 0">No tours found.</p>
+</div>
