@@ -1,6 +1,13 @@
 <h2>Tour Detail</h2>
 
 <div *ngIf="tour; else notFound">
+
+  <div class="tour-detail-actions">
+    <button class="edit" [routerLink]="['/edit-tour', tour.id]">Edit Tour</button>
+    <button class="delete" (click)="deleteTour(tour.id)">Delete Tour</button>
+    <button class="logs" [routerLink]="['/tours', tour.id, 'logs']">View Logs</button>
+  </div>
+
   <p><strong>Name:</strong> {{ tour.name }}</p>
   <p><strong>Description:</strong> {{ tour.description }}</p>
   <p><strong>From:</strong> {{ tour.fromLocation }}</p>
@@ -10,8 +17,13 @@
   <p><strong>Estimated Time:</strong> {{ tour.estimatedTime }}</p>
   <img [src]="tour.routeImageUrl" alt="Route Image" style="max-width: 100%; margin-top: 10px;">
 
+
+
   <!-- Karte sichtbar, sobald Tour geladen ist -->
   <div id="map"></div>
+
+
+
 </div>
 
 <ng-template #notFound>

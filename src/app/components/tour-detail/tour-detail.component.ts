@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import {ActivatedRoute, ParamMap, Router, RouterModule} from '@angular/router';
 import { TourService } from '../../services/tour.service';
 import { Tour } from '../../models/tour.model';
 import { map, switchMap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import {environment} from "../../../environments/environments";
 @Component({
   selector: 'app-tour-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './tour-detail.component.html',
   styleUrls: ['./tour-detail.component.scss']
 })
@@ -22,6 +22,7 @@ export class TourDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private tourService: TourService,
     private http: HttpClient
   ) {}
@@ -40,6 +41,16 @@ export class TourDetailComponent implements OnInit {
       }
     });
   }
+
+  deleteTour(id?: number): void {
+    if (!id) return;
+    if (confirm('Möchtest du diese Tour wirklich löschen?')) {
+      this.tourService.deleteTour(id).subscribe(() => {
+        this.router.navigate(['/tours']);
+      });
+    }
+  }
+
 
   private initMap(): void {
     this.map = L.map('map').setView([48.2082, 16.3738], 13);
