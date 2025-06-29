@@ -1,12 +1,64 @@
-.feedback {
-  margin-top: 10px;
-  font-weight: bold;
-}
+.tour-imports {
+  max-width: 540px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fefefe;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
 
-.success {
-  color: green;
-}
+  h2 {
+    font-size: 1.6rem;
+    color: #222;
+    margin-bottom: 1.5rem;
+  }
 
-.error {
-  color: red;
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  input[type="file"] {
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  .feedback {
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+
+    &.success {
+      color: #155724;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+    }
+
+    &.error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 1.25rem;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    input[type="file"] {
+      width: 100%;
+    }
+  }
 }
