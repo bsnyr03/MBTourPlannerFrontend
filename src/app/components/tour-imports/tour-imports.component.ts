@@ -10,6 +10,8 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './tour-imports.component.scss'
 })
 export class TourImportsComponent {
+  message: string | null = null;
+  isSuccess: boolean | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -20,11 +22,20 @@ export class TourImportsComponent {
     const formData = new FormData();
     formData.append('file', input.files[0]);
 
-    this.http.post('http://localhost:8080/api/tours/import/csv', formData)
-      .subscribe({
-        next: res => console.log('Import successful:', res),
-        error: err => console.error('Import failed:', err)
-      });
+    this.http.post<{ imported: number; status: number }>(
+      'http://localhost:8080/api/tours/import/csv',
+      formData
+    ).subscribe({
+      next: res => {
+        this.isSuccess = true;
+        this.message = `Import erfolgreich: ${res.imported} Touren importiert.`;
+      },
+      error: err => {
+        this.isSuccess = false;
+        this.message = 'Import fehlgeschlagen. Bitte überprüfe die Datei.';
+        console.error(err);
+      }
+    });
   }
 
 }

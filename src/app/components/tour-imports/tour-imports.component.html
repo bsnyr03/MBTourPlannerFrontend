@@ -3,4 +3,9 @@
 
   <label for="csvFile">Wähle eine CSV-Datei:</label>
   <input type="file" id="csvFile" accept=".csv" (change)="importCsv($event)" />
+
+  <div *ngIf="message" [ngClass]="{ success: isSuccess, error: isSuccess === false }" class="feedback">
+    {{ message }}
+  </div>
+
 </div>
