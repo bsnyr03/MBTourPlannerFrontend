@@ -6,6 +6,8 @@ export interface Tour {
   toLocation: string;
   transportType: string;
   distance: number;
-  estimatedTime: string;
+  estimatedTime: string; // bleibt als string zB "PT2H" weil Angular nicht Duration Typ kennt
   routeImageUrl: string;
+  popularity: number;
+  childFriendliness: number;
 }

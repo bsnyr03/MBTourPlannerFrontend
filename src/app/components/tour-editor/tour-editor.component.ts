@@ -39,7 +39,9 @@ export class TourEditorComponent {
         transportType: '',
         distance: 0,
         estimatedTime: '',
-        routeImageUrl: ''
+        routeImageUrl: '',
+        popularity: 50,
+        childFriendliness: 5.0
       };
       this.isLoading = false;
     }

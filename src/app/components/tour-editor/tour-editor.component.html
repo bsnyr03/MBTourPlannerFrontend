@@ -13,7 +13,7 @@
     <input id="description" [(ngModel)]="tour.description" name="description" />
 
     <label for="from">From:</label>
-
+    <input id="from" [(ngModel)]="tour.fromLocation" name="toLocation" required />
 
     <label for="to">To:</label>
     <input id="to" [(ngModel)]="tour.toLocation" name="toLocation" required />
@@ -26,6 +26,13 @@
 
     <label for="time">Estimated Time:</label>
     <input id="time" [(ngModel)]="tour.estimatedTime" name="estimatedTime" />
+
+    <label for="popularity">Popularity (1–100):</label>
+    <input id="popularity" type="number" [(ngModel)]="tour.popularity" name="popularity" min="1" max="100" required />
+
+    <label for="childFriendliness">Child Friendliness (1.0 – 10.0):</label>
+    <input id="childFriendliness" type="number" [(ngModel)]="tour.childFriendliness" name="childFriendliness" step="0.1" min="0" max="10" required />
+
 
     <label for="image">Route Image URL:</label>
     <input id="image" [(ngModel)]="tour.routeImageUrl" name="routeImageUrl" />

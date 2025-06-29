@@ -38,4 +38,34 @@ export class TourImportsComponent {
     });
   }
 
+  importJson(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const jsonData = JSON.parse(reader.result as string);
+        this.http.post<{ imported: number; status: number }>(
+          'http://localhost:8080/api/tours/import',
+          jsonData
+        ).subscribe({
+          next: res => {
+            this.isSuccess = true;
+            this.message = `JSON-Import erfolgreich: ${res.imported} Touren importiert.`;
+          },
+          error: err => {
+            this.isSuccess = false;
+            this.message = 'JSON-Import fehlgeschlagen.';
+            console.error(err);
+          }
+        });
+      } catch (err) {
+        this.isSuccess = false;
+        this.message = 'Ungültige JSON-Datei.';
+      }
+    };
+    reader.readAsText(input.files[0]);
+  }
+
 }
