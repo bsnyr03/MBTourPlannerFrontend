@@ -1,0 +1,45 @@
+.tour-tools {
+  max-width: 540px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fefefe; // Heller als vorher
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); // Weiche Schatten
+  text-align: center;
+  position: relative;
+  z-index: 1;
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    color: #222;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #3399ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background-color: #1a85ff;
+    }
+  }
+
+  @media (min-width: 600px) {
+    button {
+      width: auto;
+      display: inline-block;
+      margin: 0 0.75rem;
+    }
+  }
+}
