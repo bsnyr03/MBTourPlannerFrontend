@@ -21,22 +21,6 @@
     <label for="transport">Transport Type:</label>
     <input id="transport" [(ngModel)]="tour.transportType" name="transportType" />
 
-    <label for="distance">Distance (km):</label>
-    <input id="distance" type="number" [(ngModel)]="tour.distance" name="distance" />
-
-    <label for="time">Estimated Time:</label>
-    <input id="time" [(ngModel)]="tour.estimatedTime" name="estimatedTime" />
-
-    <label for="popularity">Popularity (1–100):</label>
-    <input id="popularity" type="number" [(ngModel)]="tour.popularity" name="popularity" min="1" max="100" required />
-
-    <label for="childFriendliness">Child Friendliness (1.0 – 10.0):</label>
-    <input id="childFriendliness" type="number" [(ngModel)]="tour.childFriendliness" name="childFriendliness" step="0.1" min="0" max="10" required />
-
-
-    <label for="image">Route Image URL:</label>
-    <input id="image" [(ngModel)]="tour.routeImageUrl" name="routeImageUrl" />
-
     <button type="submit" class="submit-btn">{{ isEdit ? 'Update Tour' : 'Create Tour' }}</button>
   </form>
 </div>

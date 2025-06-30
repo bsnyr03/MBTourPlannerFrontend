@@ -36,12 +36,7 @@ export class TourEditorComponent {
         description: '',
         fromLocation: '',
         toLocation: '',
-        transportType: '',
-        distance: 0,
-        estimatedTime: '',
-        routeImageUrl: '',
-        popularity: 50,
-        childFriendliness: 5.0
+        transportType: ''
       };
       this.isLoading = false;
     }
