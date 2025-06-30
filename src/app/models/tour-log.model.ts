@@ -5,5 +5,5 @@ export interface TourLog {
   difficulty: number;
   totalDistance: number;
   totalTime: string;
-  rating: string;
+  rating: number;
 }

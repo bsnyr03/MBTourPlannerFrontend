@@ -7,7 +7,7 @@
   <input type="datetime-local" [(ngModel)]="log.logDateTime" name="logDateTime" required>
 
   <label>Total Time:</label>
-  <input [(ngModel)]="log.totalTime" name="totalTime" required>
+  <input type="number" [(ngModel)]="log.totalTime" name="totalTime" required>
 
   <label>Distance (km):</label>
   <input type="number" [(ngModel)]="log.totalDistance" name="totalDistance" required>
@@ -17,11 +17,11 @@
 
   <label>Rating:</label>
   <select [(ngModel)]="log.rating" name="rating" required>
-    <option value="1 stars">1 star</option>
-    <option value="2 stars">2 stars</option>
-    <option value="3 stars">3 stars</option>
-    <option value="4 stars">4 stars</option>
-    <option value="5 stars">5 stars</option>
+    <option [ngValue]="1">1 star</option>
+    <option [ngValue]="2">2 stars</option>
+    <option [ngValue]="3">3 stars</option>
+    <option [ngValue]="4">4 stars</option>
+    <option [ngValue]="5">5 stars</option>
   </select>
 
 

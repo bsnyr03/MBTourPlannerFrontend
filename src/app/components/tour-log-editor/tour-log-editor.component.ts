@@ -24,7 +24,7 @@ export class TourLogEditorComponent {
     difficulty: 1,
     totalDistance: 0,
     totalTime: '',
-    rating: ''
+    rating: 1
   };
 
   constructor(
@@ -49,6 +49,15 @@ export class TourLogEditorComponent {
   }
 
   save(): void {
+
+    const minutes = parseInt(this.log.totalTime, 10);
+    const duration = isNaN(minutes) ? 'PT0M' : `PT${minutes}M`;
+
+    const payload: TourLog = {
+      ...this.log,
+      totalTime: duration
+    };
+
     if (this.isEdit && this.logId != null) {
       this.tourLogService.updateLog(this.tourId, this.logId, this.log).subscribe(() => {
         this.router.navigate(['/tours', this.tourId, 'logs']);
