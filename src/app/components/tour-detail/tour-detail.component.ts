@@ -7,6 +7,7 @@ import { map, switchMap } from 'rxjs/operators';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import {environment} from "../../../environments/environments";
+import {tileLayer} from "leaflet";
 
 @Component({
   selector: 'app-tour-detail',
@@ -15,10 +16,11 @@ import {environment} from "../../../environments/environments";
   templateUrl: './tour-detail.component.html',
   styleUrls: ['./tour-detail.component.scss']
 })
-export class TourDetailComponent implements OnInit {
+export class TourDetailComponent implements OnInit, AfterViewInit {
   tour?: Tour;
   private map: any;
   private routeLayer: any;
+  private tileBlob: Blob = new Blob;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +42,26 @@ export class TourDetailComponent implements OnInit {
         }, 0);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.map && this.routeLayer && this.tour?.id) {
+      (this.map, (err: any, canvas: { toBlob: (arg0: (blob: Blob) => void) => void; }) => {
+        if (err) {
+          console.error('leafletImage error', err);
+          return;
+        }
+        canvas.toBlob((blob: Blob) => {
+          if (!blob) return;
+          const form = new FormData();
+          form.append('file', blob, 'route.png');
+          this.http.post(`/api/tours/${this.tour!.id}/image`, form).subscribe({
+            next: () => console.log('Map image uploaded'),
+            error: e => console.error('Upload failed', e)
+          });
+        });
+      });
+    }
   }
 
   deleteTour(id?: number): void {
