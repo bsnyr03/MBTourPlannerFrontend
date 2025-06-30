@@ -19,7 +19,7 @@ export class TourSearchComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchAllTours(); // zeigt beim Start alle Touren
+    this.fetchAllTours();
   }
 
   search(): void {

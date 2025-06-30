@@ -100,6 +100,28 @@ this.http.post(`${this.BASE_URL}/import`, data); // POST /api/tours/import
 
 ---
 
+### 🌍 Kartenintegration mit Leaflet und OpenRouteService
+
+Ein zentrales Feature der Anwendung ist die visuelle Darstellung von Routen auf einer interaktiven Karte. Dazu wird [Leaflet](https://leafletjs.com/) verwendet – eine leichtgewichtige JavaScript-Bibliothek zur Anzeige von Karten im Web. Für die Berechnung und Anzeige der Route zwischen zwei Orten kommt die [OpenRouteService API](https://openrouteservice.org/) zum Einsatz.
+
+#### Funktionsweise:
+
+- In der `TourDetailComponent` wird nach dem Laden der Tourdaten automatisch eine Karte gerendert.
+- Die Karte wird initial auf eine Standardposition zentriert (z. B. Wien), bis die Route geladen ist.
+- Mithilfe von OpenRouteService werden die Adressen (`fromLocation` und `toLocation`) geocodiert, d. h. in Koordinaten umgewandelt.
+- Anschließend erfolgt ein Routen-Request an die API, basierend auf Transportmittel und Koordinaten.
+- Die Route wird als farbige Linie (Polyline) auf der Karte dargestellt und automatisch in den sichtbaren Bereich gezoomt.
+
+#### Beispielcode zur Initialisierung:
+
+```ts
+this.map = L.map('map').setView([48.2082, 16.3738], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(this.map);
+
+
 ##  Features im Überblick
 
 -  **Tour-CRUD** mit Formularvalidierung

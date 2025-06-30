@@ -7,9 +7,12 @@
     (input)="search()"
     placeholder="Search tours by name, location, etc." />
 
-  <ul *ngIf="tours.length > 0">
+  <ul *ngIf="tours.length > 0" class="tour-list">
     <li *ngFor="let tour of tours">
-      <strong>{{ tour.name }}</strong> – {{ tour.description }}
+      <a [routerLink]="['/tours', tour.id]" class="tour-item">
+        <strong>{{ tour.name }}</strong><br />
+        <span>{{ tour.description }}</span>
+      </a>
     </li>
   </ul>
 

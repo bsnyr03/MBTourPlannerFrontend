@@ -24,3 +24,37 @@
     }
   }
 }
+
+.tour-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  .tour-item {
+    display: block;
+    padding: 1rem;
+    background-color: #f5f7fa;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #e8eef5;
+    }
+
+    strong {
+      font-size: 1.1rem;
+      display: block;
+    }
+
+    span {
+      font-size: 0.95rem;
+      color: #555;
+    }
+  }
+}
