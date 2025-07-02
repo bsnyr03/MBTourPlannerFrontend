@@ -1,13 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ActivatedRoute, ParamMap, Router, RouterModule} from '@angular/router';
-import { TourService } from '../../services/tour.service';
-import { Tour } from '../../models/tour.model';
-import { map, switchMap } from 'rxjs/operators';
+import {TourService} from '../../services/tour.service';
+import {Tour} from '../../models/tour.model';
+import {map, switchMap} from 'rxjs/operators';
 import * as L from 'leaflet';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from "../../../environments/environments";
-import {tileLayer} from "leaflet";
+
+declare let html2canvas: any;
 
 @Component({
   selector: 'app-tour-detail',
@@ -16,18 +17,19 @@ import {tileLayer} from "leaflet";
   templateUrl: './tour-detail.component.html',
   styleUrls: ['./tour-detail.component.scss']
 })
-export class TourDetailComponent implements OnInit, AfterViewInit {
+export class TourDetailComponent implements OnInit {
+  @ViewChild('mapContainer', {static: true}) mapContainer!: ElementRef;
   tour?: Tour;
   private map: any;
   private routeLayer: any;
-  private tileBlob: Blob = new Blob;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private tourService: TourService,
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
@@ -42,26 +44,6 @@ export class TourDetailComponent implements OnInit, AfterViewInit {
         }, 0);
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    if (this.map && this.routeLayer && this.tour?.id) {
-      (this.map, (err: any, canvas: { toBlob: (arg0: (blob: Blob) => void) => void; }) => {
-        if (err) {
-          console.error('leafletImage error', err);
-          return;
-        }
-        canvas.toBlob((blob: Blob) => {
-          if (!blob) return;
-          const form = new FormData();
-          form.append('file', blob, 'route.png');
-          this.http.post(`/api/tours/${this.tour!.id}/image`, form).subscribe({
-            next: () => console.log('Map image uploaded'),
-            error: e => console.error('Upload failed', e)
-          });
-        });
-      });
-    }
   }
 
   deleteTour(id?: number): void {
@@ -79,7 +61,10 @@ export class TourDetailComponent implements OnInit, AfterViewInit {
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
-    }).addTo(this.map);
+    }).addTo(this.map)
+      .on('titleload', () => {
+        this.maybeCaptureAndUploadMapImage();
+      });
   }
 
   private async displayRoute(from: string, to: string): Promise<void> {
@@ -98,10 +83,47 @@ export class TourDetailComponent implements OnInit, AfterViewInit {
       const data: any = await this.http.get(url).toPromise();
 
       const coords = data.features[0].geometry.coordinates.map((c: number[]) => [c[1], c[0]]);
-      this.routeLayer = L.polyline(coords, { color: 'blue' }).addTo(this.map);
+      this.routeLayer = L.polyline(coords, {color: 'blue'}).addTo(this.map);
       this.map.fitBounds(this.routeLayer.getBounds());
+
+      this.maybeCaptureAndUploadMapImage();
+
     } catch (err) {
       console.error('Fehler bei Routenanzeige', err);
     }
+  }
+
+  private tileCount = 0;
+  private totalTiles = 0;
+  private routeDrawn = false;
+
+  private maybeCaptureAndUploadMapImage(): void {
+    const tiles = this.mapContainer.nativeElement.querySelectorAll('img.leaflet-tile') as NodeListOf<HTMLImageElement>;
+
+    this.totalTiles = tiles.length;
+    this.tileCount = Array.from(tiles).filter((img) => img.complete).length;
+    this.routeDrawn = !!this.routeLayer;
+
+    if (this.routeDrawn && this.tileCount === this.totalTiles) {
+      this.captureAndUpload();
+    }
+  }
+
+  private captureAndUpload(): void {
+    import('html2canvas').then((mod) => {
+      mod.default(this.mapContainer.nativeElement).then((canvas: HTMLCanvasElement) => {
+        canvas.toBlob((blob: Blob | null) => {
+          if (!blob || !this.tour) return;
+          const form = new FormData();
+          form.append('file', blob, `tour-${this.tour.id}.png`);
+          this.http
+            .post<void>(`api/tours/${this.tour.id}/image`, form)
+            .subscribe({
+              next: () => console.log('Bild erfolgreich hochgeladen'),
+              error: (err) => console.error('Fehler beim Hochladen des Bildes', err)
+            });
+        }, 'image/png');
+      });
+    });
   }
 }
