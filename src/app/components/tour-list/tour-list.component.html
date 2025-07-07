@@ -19,7 +19,7 @@
       <div
         class="tour-card"
         *ngFor="let tour of filteredTours"
-        (click)="goToTourDetail(tour.id)"
+        (click)="selectTour(tour)"
       >
         <div class="tour-name">{{ tour.name }}</div>
       </div>
@@ -27,9 +27,24 @@
   </section>
 
 
-  <div class="tour-footer" *ngIf="selectedTour">
-    <button class="edit" [routerLink]="['/edit-tour', selectedTour.id]">Edit Tour</button>
-    <button class="delete" (click)="deleteTour(selectedTour!.id)">Delete Tour</button>
-    <button class="logs" [routerLink]="['/tours', selectedTour.id, 'logs']">View Logs</button>
-  </div>
+  <section class="tour-detail-column" *ngIf="selectedTour">
+    <h2>{{ selectedTour.name }}</h2>
+    <p><strong>Description:</strong> {{ selectedTour.description }}</p>
+    <p><strong>From:</strong> {{ selectedTour.fromLocation }}</p>
+    <p><strong>To:</strong> {{ selectedTour.toLocation }}</p>
+    <p><strong>Transport:</strong> {{ selectedTour.transportType }}</p>
+    <p><strong>Distance:</strong> {{ selectedTour.distance }} km</p>
+    <p><strong>Estimated Time:</strong> {{ formatEstimatedTime(selectedTour.estimatedTime) }}</p>
+
+
+    <!-- <img [src]="selectedTour.routeImageUrl" alt="Route Image" style="max-width: 100%; margin-top: 10px;"> -->
+
+    <div id="map" #mapContainer style="height: 300px; margin-top: 20px;"></div>
+
+    <div class="tour-footer">
+      <button class="edit" [routerLink]="['/edit-tour', selectedTour.id]">Edit Tour</button>
+      <button class="delete" (click)="deleteTour(selectedTour.id)">Delete Tour</button>
+      <button class="logs" [routerLink]="['/tours', selectedTour.id, 'logs']">View Logs</button>
+    </div>
+  </section>
 </div>

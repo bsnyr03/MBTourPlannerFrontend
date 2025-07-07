@@ -126,4 +126,18 @@ export class TourDetailComponent implements OnInit {
       });
     });
   }
+
+  formatEstimatedTime(duration: string | undefined): string {
+    if (!duration) return '';
+
+    const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
+
+    if (!match) return duration;
+
+    const hours = match[1] ? `${match[1]}h` : '';
+    const minutes = match[2] ? `${match[2]}min` : '';
+
+    return `${hours} ${minutes}`.trim();
+  }
+
 }
